@@ -1,0 +1,8 @@
+package model;
+
+public enum Pet_State{
+	
+		WAITING, ON_CONSULT, HOSPITAL_TRANSFER, AUTHORIZED_EXIT, NO_ATTENTION_EXIT
+
+
+}
