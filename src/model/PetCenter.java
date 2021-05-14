@@ -7,6 +7,7 @@ public class PetCenter{
 
 	public int vetCount=0;
 	public int petCount=0;
+	public boolean exit=true;
 	
 	private int waitingPets=0;
 	private int exitPets=0;
@@ -29,7 +30,17 @@ public class PetCenter{
 
 	// Add methods
 
-	public void addVet(String idNumber, String name, String lastName,String vetId,Vet_State state){
+	/**
+	* Description: Method that creates and adds a vet object into an array named vetArray<br>
+	* <b> pre:</b> The vetArray must have atleast one empty space<br>
+	* <b> pos:</b> A position on the vetArray has been filled with a Vet object<br>
+	* @param idNumber String 
+	* @param name String 
+	* @param lastName String 
+	* @param vetId String
+	*/
+
+	public void addVet(String idNumber, String name, String lastName,String vetId){
 		boolean empty= false;
 		for (int pos =0; pos<vetArray.length && !empty; pos++){
 
@@ -38,7 +49,7 @@ public class PetCenter{
 				empty=true;
 			}	
 			if(vetArray[pos]==null){
-				Vet newVet = new Vet (idNumber,name,lastName,vetId,state);
+				Vet newVet = new Vet (idNumber,name,lastName,vetId,Vet_State.FREE);
 				vetArray[pos]=newVet;
 				System.out.println( vetArray[pos].getName() + " has been registered\n");
 				vetArray[pos].setAmountConsults(0);
@@ -47,6 +58,19 @@ public class PetCenter{
 			}	
 		}
 	}
+
+	/**
+	* Description: Method that creates and adds a pet object into an array named petArray<br>
+	* <b> pre:</b> The petArray must have atleast one empty space<br>
+	* <b> pos:</b> A position on the petArray has been filled with a Pet object<br>
+	* @param age String
+	* @param petName String 
+	* @param symptom String 
+	* @param specie Specie 
+	* @param state Pet_State 
+	* @param priority Priority
+	* @param owner Owner 
+	*/
 
 	public void addPet(String age,String petName,String symptom,Specie specie,Pet_State state,Priority priority,Owner owner){
 		boolean empty= false;
@@ -67,7 +91,21 @@ public class PetCenter{
 				empty=true;
 			}
 		}
-	}	
+	}
+
+	/**
+	* Description: Method that creates and adds a pet object into an array named petArray<br>
+	* <b> pre:</b> The petArray must have atleast one empty space<br>
+	* <b> pos:</b> A position on the petArray has been filled with a Pet object<br>
+	* @param age String
+	* @param petName String 
+	* @param symptom String
+	* @param race String
+	* @param specie Specie 
+	* @param state Pet_State 
+	* @param priority Priority
+	* @param owner Owner 
+	*/	
 
 	public void addPet(String age,String petName,String symptom,String race,Specie specie,Pet_State state,Priority priority,Owner owner){
 		boolean empty= false;
@@ -92,6 +130,13 @@ public class PetCenter{
 
 	// Delete methods
 
+	/**
+	* Description: Method that a vet object from the array named vetArray<br>
+	* <b> pre:</b> The vetArray must have atleast one space occupied<br>
+	* <b> pos:</b> An object from the vetArray has been deleted<br>
+	* @param vetId String
+	*/
+
 	public void deleteVet (String vetId){
 
 		boolean find=false;
@@ -102,7 +147,7 @@ public class PetCenter{
 				vetCount--;
 				find=true;
 			}
-			if(vetArray[i]!=null && vetArray[i].getVetId().equalsIgnoreCase(vetId) && petCount>0){
+			if(vetArray[i]!=null && vetArray[i].getVetId().equalsIgnoreCase(vetId) && petCount>0 && vetArray[i].getVetState().equals(Vet_State.FREE)){
 				System.out.println( "Cannot delete the vet because theres still pets registered\n");
 				find=true;
 			}
@@ -117,6 +162,14 @@ public class PetCenter{
 			System.out.println("Theres no vet with this special vet ID\n");
 		}
 	}
+
+	/**
+	* Description: Method that a pet object from the array named petArray<br>
+	* <b> pre:</b> The petArray must have atleast one space occupied<br>
+	* <b> pos:</b> An object from the petArray has been deleted<br>
+	* @param ownerName String
+	* @param petName String
+	*/
 
 	public void deletePet (String ownerName,String petName){
 
@@ -142,10 +195,21 @@ public class PetCenter{
 
 	// Create objects on Main methods
 
-	public void addVetMain(String idNumber,String name,String lastName,String vetId){
-		
-		addVet(idNumber,name,lastName,vetId,Vet_State.FREE);
-	}
+	/**
+	* Description: Method that is called on the Main. This method calls the addPet method<br>
+	* <b> pre:</b> The petArray must have atleast one space occupied<br>
+	* @param specie Specie
+	* @param priority Priority
+	* @param idNumber String
+	* @param name String
+	* @param lastName String
+	* @param phone String
+	* @param adress String
+	* @param age String
+	* @param petName String 
+	* @param symptom String
+	* @param race String
+	*/
 
 	public void addPetMain(int specie, int priority,String idNumber,String name,String lastName,String phone,String adress,String age,String petName,String symptom,String race){
 		Owner owner= new Owner (idNumber,name,lastName,phone,adress);
@@ -193,6 +257,21 @@ public class PetCenter{
 				break;
 			}
 	}
+
+	/**
+	* Description: Method that is called on the Main. This method calls the addPet method<br>
+	* <b> pre:</b> The petArray must have atleast one space occupied<br>
+	* @param specie Specie
+	* @param priority Priority
+	* @param idNumber String
+	* @param name String
+	* @param lastName String
+	* @param phone String
+	* @param adress String
+	* @param age String
+	* @param petName String 
+	* @param symptom String
+	*/
 
 	public void addPetMain(int specie, int priority,String idNumber,String name,String lastName,String phone,String adress,String age,String petName,String symptom){		
 			Owner owner= new Owner (idNumber,name,lastName,phone,adress);
@@ -262,6 +341,12 @@ public class PetCenter{
 
 	// Start Consult methods
 
+	/**
+	* Description: Method that looks for the next pet object that is WAITING and has the highest priority on the petArray<br>
+	* <b> pre:</b> The petArray must have atleast one space occupied<br>
+	* @return petPos int, contains a position of the petAarray 
+	*/
+
 	public int searchPet(){
 		boolean highest=false;
 		int petPos=-1;
@@ -302,6 +387,12 @@ public class PetCenter{
 		return petPos;
 	}
 
+	/**
+	* Description: Method that looks for the next vet object that is FREE on the vetArray<br>
+	* <b> pre:</b> The vetArray must have atleast one space occupied<br>
+	* @return vetPos int, contains a position of the vetAarray 
+	*/
+
 	public int searchVet(){
 		int vetPos=-1;
 		boolean free=false;
@@ -313,6 +404,11 @@ public class PetCenter{
 		}
 		return vetPos;
 	}
+
+	/**
+	* Description: Method that starts a consult between a vet and a pet<br>
+	* <b> pos:</b> The status of both a certain vet and pet has changed and the pet now contains a vetConsult and the vet a amountConsults<br>
+	*/
 
 	public void startConsult(){
 		int pet=searchPet();
@@ -477,9 +573,11 @@ public class PetCenter{
 		}
 			else if(searchForWaitingPets()==true){
 				System.out.println("Theres still pets left to be attended\n");
+				exit=false;
 			}
 				else if(checkArrays()==true){
 					System.out.println("Theres still pets being attended\n");
+					exit=false;
 				}
 					else{
 						System.out.println("		Vet Info\n" +
@@ -495,6 +593,7 @@ public class PetCenter{
 								   "The amount of pets that left without being attended is : " + percentagePet() + "%\n\n");
 						System.out.println("The shop has closed\n");
 						clearArrays();
+						exit=true;
 					}
 	}
 
@@ -510,5 +609,9 @@ public class PetCenter{
 
 	public int getWaitingPets(){
 		return waitingPets;
+	}
+
+	public boolean getExit(){
+		return exit;
 	}
 }

@@ -5,13 +5,15 @@ import model.PetCenter;
 public class Main{
 
 	public Scanner sc;
+	private int menu=0;
 	private String race;
 
 	//relationships
 	private PetCenter petCenter;
 
 	public Main (){
-	sc = new Scanner(System.in);
+
+		sc = new Scanner(System.in);	
 	}
 	
 	public static void main (String [] args){
@@ -22,7 +24,6 @@ public class Main{
 	// Menu methods
 
 	public void openUp(){
-		int menu=0;
 
 		do {
 				System.out.println("		Menu\n"+
@@ -48,7 +49,6 @@ public class Main{
 	}
 
 	public void showmenu(){
-		int menu=0;
 			
 			do {
 				System.out.println("		Menu\n"+
@@ -59,9 +59,7 @@ public class Main{
 								   "5) Number of pets waiting to be attendended\n" +
 								   "6) Delete a vet\n"+
 								   "7) Delete a pet\n"+
-								   "8) Close shop\n" +
-								   "0) Exit\n");
-			
+								   "8) Close shop\n");
 			
 				menu=sc.nextInt();
 				sc.nextLine();
@@ -98,19 +96,21 @@ public class Main{
 
 					case 8:
 						petCenter.closeShop();
+						if(petCenter.getExit()==true){
+							menu=0;
+						}
 					break;
 
 					default:
 						System.out.println("\n");
 					break;
-
 				}
 
 			} while(menu!=0);
 	}
 
 	// Pet Center methods
-	
+
 	public void addVet(){
 
 			if(petCenter.getVetCount()==7){
@@ -132,7 +132,7 @@ public class Main{
 				System.out.println("Please enter the special vet ID of this vet\n");
 				String vetId= sc.nextLine();
 
-				petCenter.addVetMain(idNumber,name,lastName,vetId);
+				petCenter.addVet(idNumber,name,lastName,vetId);
 			}
 	}
 
