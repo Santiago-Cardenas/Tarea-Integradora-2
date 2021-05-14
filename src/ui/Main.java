@@ -102,7 +102,7 @@ public class Main{
 					break;
 
 					default:
-						System.out.println("\n");
+						System.out.println("Please select a valid option\n");
 					break;
 				}
 

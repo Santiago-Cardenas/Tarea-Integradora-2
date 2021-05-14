@@ -435,15 +435,18 @@ public class PetCenter{
 							break;
 
 							default:
-								consultAmount=vetArray[vet].getAmountConsults();
-
 								System.out.println("The personal Id number of the veterinary that will attend " + petArray[pet].getPetName() + " is: " + vetArray[vet].getIdNumber() + "\n");								
-								consultAmount++;
+								
 								vetArray[vet].setVetState(Vet_State.ON_CONSULT);
 								petArray[pet].setPetState(Pet_State.ON_CONSULT);
+
+								consultAmount=vetArray[vet].getAmountConsults();
+								consultAmount++;
 								vetArray[vet].setAmountConsults(consultAmount);
+
 								petArray[pet].setConsultVet(vetArray[vet]);
 								amountPetsPriority(pet);
+
 								waitingPets--;
 							break;
 						}
@@ -533,6 +536,7 @@ public class PetCenter{
 				vetName=vetArray[i].getName();
 				vetName+= " ";
 				vetName+=vetArray[i].getLastName();
+				highest=vetArray[i].getAmountConsults();
 			}
 		}
 		return vetName;
