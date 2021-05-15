@@ -238,7 +238,7 @@ public class PetCenter{
 	}
 
 	/**
-	* Description: Method that deletes a pet object from the array named petArray<br>
+	* Description: Method that changes the status of a pet object from the array named petArray<br>
 	* <b> pre:</b> The petArray must have atleast one space occupied<br>
 	* <b> pos:</b> An object from the petArray has changed its status<br>
 	* @param ownerName String
@@ -263,7 +263,7 @@ public class PetCenter{
 		}
 
 		if(find==false){
-			System.out.println("Theres no pet registered like this\n");
+			System.out.println("Theres no pet registered like this // OR // this pet is not waiting or on consult\n");
 		}
 	}
 
@@ -600,7 +600,7 @@ public class PetCenter{
 						break;
 
 						default:
-							System.out.println("Please enter a valid exit status");
+							System.out.println("Please enter a valid exit status\n");
 							verify=true;
 						break;
 					}
@@ -772,5 +772,9 @@ public class PetCenter{
 
 	public boolean getExit(){
 		return exit;
+	}
+
+	public void setExit(boolean exit){
+		this.exit=exit;
 	}
 }

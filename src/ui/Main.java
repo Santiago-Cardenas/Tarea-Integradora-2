@@ -74,10 +74,12 @@ public class Main{
 
 					default:
 						System.out.println("\n");
+						petCenter= new PetCenter();
+						petCenter.setExit(true);
 					break;
 				}
 
-			} while(menu!=0);
+			} while(petCenter.getExit()==false);
 	}
 
 	/**
@@ -104,45 +106,50 @@ public class Main{
 
 					case 1:
 						addVet();
+						petCenter.setExit(false);
 					break;
 
 					case 2:
 						addPet();
+						petCenter.setExit(false);
 					break;
 
 					case 3:
 						startConsult();
+						petCenter.setExit(false);
 					break;
 
 					case 4:
 						endConsult();
+						petCenter.setExit(false);
 					break;
 
 					case 5:
 						System.out.println("There are " + petCenter.getWaitingPets() + " pet(s) left to be attendended\n");
+						petCenter.setExit(false);
 					break;
 
 					case 6:
 						deleteVet();
+						petCenter.setExit(false);
 					break;
 
 					case 7:
 						deletePet();
+						petCenter.setExit(false);
 					break;
 
 					case 8:
 						petCenter.closeShop();
-						if(petCenter.getExit()==true){
-							menu=0;
-						}
 					break;
 
 					default:
 						System.out.println("Please select a valid option\n");
+						petCenter.setExit(false);
 					break;
 				}
 
-			} while(menu!=0);
+			} while(petCenter.getExit()==false);
 	}
 
 	// Pet Center methods
@@ -293,9 +300,9 @@ public class Main{
 	}
 
 	/**
-	* Description: This method allows the user to input the information required to delete a vet<br>
+	* Description: This method allows the user to input the information required to change the status of a pet<br>
 	* <b> pre:</b> the variable menu needs have a value of 7<br>
-	* <b> pos:</b> the requiered information to delete a vet has been sent to the petCenter via the method <br>
+	* <b> pos:</b> the requiered information to delete a pet has been sent to the petCenter via the method <br>
 	*/
 
 	public void deletePet(){
