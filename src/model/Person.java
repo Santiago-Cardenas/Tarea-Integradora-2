@@ -1,9 +1,32 @@
 package model;
 
 public abstract class Person{
+
+	/**
+	* Description: variable that stores the personal id of a person<br>
+	*/
+
 	private String idNumber;
+
+	/**
+	* Description: variable that stores the first name of a person<br>
+	*/
+
 	private String name;
+
+	/**
+	* Description: variable that stores the last name of a person<br>
+	*/
+
 	private String lastName;
+
+	/**
+	* Description: Construction method of the Pet class<br>
+	* <b> pos:</b> The atributes will be initialize with a value<br>
+	* @param idNumber String
+	* @param name String
+	* @param lastName String
+	*/
 
 	public Person (String idNumber, String name, String lastName){
 		this.idNumber=idNumber;
@@ -21,18 +44,6 @@ public abstract class Person{
 
 	public String getLastName(){
 		return lastName;
-	}
-
-	public void setIdNumber(String idNumber){
-		this.idNumber=idNumber;
-	}
-
-	public void setName(String name){
-		this.name=name;
-	}
-
-	public void setLastName(String lastName){
-		this.lastName=lastName;
 	}
 }
 

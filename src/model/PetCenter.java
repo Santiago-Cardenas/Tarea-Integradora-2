@@ -2,27 +2,101 @@ package model;
 
 public class PetCenter{
 
+	/**
+	* Description: Global Constant that defines the size of the vetArrat
+	*/
+
 	public final int MAXVET=7;
+
+	/**
+	* Description: Global Constant that defines the size of the petArrat
+	*/
+
 	public final int MAXPET=120;
 
+	/**
+	* Description: Helps tracking how many vets are registered currently <br>
+	*/
+
 	public int vetCount=0;
+
+	/**
+	* Description: Helps tracking how many pets are registered currently <br>
+	*/
+
 	public int petCount=0;
+
+	/**
+	* Description: Helps verify if the shop can close or not<br>
+	*/
+
 	public boolean exit=true;
 	
+	/**
+	* Description: Helps tracking how many pets have a WAITING status <br>
+	*/
+
 	private int waitingPets=0;
+
+	/**
+	* Description: Helps tracking how many pets have a NO_ATTENTION_EXIT status<br>
+	*/
+
 	private int exitPets=0;
+
+	/**
+	* Description: Helps tracking how many pets have been registered in total<br>
+	*/
+
 	private int globalPets=0;
 
+	/**
+	* Description: Helps tracking how many pets have a PRIORITY_1 priority<br>
+	*/
+
 	private int pri1=0;
+
+	/**
+	* Description: Helps tracking how many pets have a PRIORITY_2 priority<br>
+	*/
+
 	private int pri2=0;
+
+	/**
+	* Description: Helps tracking how many pets have a PRIORITY_3 priority<br>
+	*/
+
 	private int pri3=0;
+
+	/**
+	* Description: Helps tracking how many pets have a PRIORITY_4 priority<br>
+	*/
+
 	private int pri4=0;
+
+	/**
+	* Description: Helps tracking how many pets have a PRIORITY_5 priority<br>
+	*/
 	private int pri5=0;
 
 	//relationships
+
+	/**
+	* Description: Relation with the Vet class // This is a Vet array in which i can store vet objects<br>
+	*/
+
 	private Vet [] vetArray;
+
+	/**
+	* Description: Relation with the Pet class // This is a Pet array in which i can store pet objects<br>
+	*/
+
 	private Pet [] petArray;
 	
+	/**
+	* Description:Construction method of the PetCenter class, it allows initiating the arrays vet Array,petArray with a size of MAXVET and MAXPET respectively<br>
+	*/
+
 	public PetCenter (){
 		vetArray=new Vet [MAXVET];
 		petArray=new Pet [MAXPET];
@@ -131,7 +205,7 @@ public class PetCenter{
 	// Delete methods
 
 	/**
-	* Description: Method that a vet object from the array named vetArray<br>
+	* Description: Method that deletes a vet object from the array named vetArray<br>
 	* <b> pre:</b> The vetArray must have atleast one space occupied<br>
 	* <b> pos:</b> An object from the vetArray has been deleted<br>
 	* @param vetId String
@@ -164,9 +238,9 @@ public class PetCenter{
 	}
 
 	/**
-	* Description: Method that a pet object from the array named petArray<br>
+	* Description: Method that deletes a pet object from the array named petArray<br>
 	* <b> pre:</b> The petArray must have atleast one space occupied<br>
-	* <b> pos:</b> An object from the petArray has been deleted<br>
+	* <b> pos:</b> An object from the petArray has changed its status<br>
 	* @param ownerName String
 	* @param petName String
 	*/
@@ -176,7 +250,7 @@ public class PetCenter{
 		boolean find=false;
 		for(int i=0; i < petArray.length && !find; i++){
 			if(petArray[i]!=null && petArray[i].getOwner().getName().equalsIgnoreCase(ownerName) && petArray[i].getPetName().equalsIgnoreCase(petName) && petArray[i].getState()==Pet_State.WAITING){
-				petArray[i]=null;
+				petArray[i].setPetState(Pet_State.NO_ATTENTION_EXIT);
 				System.out.println( petName + " has been deleted\n");
 				exitPets++;
 				petCount--;
@@ -196,10 +270,10 @@ public class PetCenter{
 	// Create objects on Main methods
 
 	/**
-	* Description: Method that is called on the Main. This method calls the addPet method<br>
+	* Description: Method that is called on the Main, This method calls the addPet method<br>
 	* <b> pre:</b> The petArray must have atleast one space occupied<br>
-	* @param specie Specie
-	* @param priority Priority
+	* @param specie int
+	* @param priority int
 	* @param idNumber String
 	* @param name String
 	* @param lastName String
@@ -233,6 +307,9 @@ public class PetCenter{
 						case 5:
 							addPet(age,petName,symptom,race,Specie.DOG,Pet_State.WAITING,Priority.PRIORITY_5,owner);
 						break;
+						default:
+            				System.out.println("Enter valid information");
+            			break;
 					}
 				break;
 
@@ -253,16 +330,23 @@ public class PetCenter{
 						case 5:
 							addPet(age,petName,symptom,race,Specie.CAT,Pet_State.WAITING,Priority.PRIORITY_5,owner);
 						break;
+						default:
+            				System.out.println("Enter valid information");
+            			break;
 					}
+				break;
+
+				default:
+					System.out.println("Enter valid information");
 				break;
 			}
 	}
 
 	/**
-	* Description: Method that is called on the Main. This method calls the addPet method<br>
+	* Description: Method that is called on the Main, This method calls the addPet method<br>
 	* <b> pre:</b> The petArray must have atleast one space occupied<br>
-	* @param specie Specie
-	* @param priority Priority
+	* @param specie int
+	* @param priority int
 	* @param idNumber String
 	* @param name String
 	* @param lastName String
@@ -294,6 +378,9 @@ public class PetCenter{
 							case 5:
 								addPet(age,petName,symptom,Specie.BUNNY,Pet_State.WAITING,Priority.PRIORITY_5,owner);
 							break;
+							default:
+            					System.out.println("Enter valid information");
+            				break;
 						}
 					break;
 
@@ -314,6 +401,9 @@ public class PetCenter{
 							case 5:
 								addPet(age,petName,symptom,Specie.REPITLE,Pet_State.WAITING,Priority.PRIORITY_5,owner);
 							break;
+							default:
+            					System.out.println("Enter valid information");
+            				break;
 						}
 					break;
 
@@ -334,8 +424,14 @@ public class PetCenter{
 							case 5:
 								addPet(age,petName,symptom,Specie.BIRD,Pet_State.WAITING,Priority.PRIORITY_5,owner);
 							break;
+							default:
+            					System.out.println("Enter valid information");
+            				break;
 						}
 					break;
+					default:
+    					System.out.println("Enter valid information");
+    				break;
 				}
 	}
 
@@ -388,16 +484,17 @@ public class PetCenter{
 	}
 
 	/**
-	* Description: Method that looks for the next vet object that is FREE on the vetArray<br>
+	* Description: Method that looks for the next vet object that is FREE on the vetArray based on the input of the user<br>
 	* <b> pre:</b> The vetArray must have atleast one space occupied<br>
+	* @param idNumber String
 	* @return vetPos int, contains a position of the vetAarray 
 	*/
 
-	public int searchVet(){
+	public int searchVet(String idNumber){
 		int vetPos=-1;
 		boolean free=false;
 		for(int pos=0; pos<vetArray.length && !free; pos++){
-			if(vetArray[pos]!=null && vetArray[pos].getVetState().equals(Vet_State.FREE)){
+			if(vetArray[pos]!=null && vetArray[pos].getIdNumber().equalsIgnoreCase(idNumber) && vetArray[pos].getVetState().equals(Vet_State.FREE)){
 				vetPos=pos;
 				free=true;
 			}
@@ -407,12 +504,14 @@ public class PetCenter{
 
 	/**
 	* Description: Method that starts a consult between a vet and a pet<br>
+	* <b> pre:</b> There has to be atleast one object on the vetArray and petArray<br>
 	* <b> pos:</b> The status of both a certain vet and pet has changed and the pet now contains a vetConsult and the vet a amountConsults<br>
+	* @param idNumber String
 	*/
 
-	public void startConsult(){
+	public void startConsult(String idNumber){
 		int pet=searchPet();
-		int vet=searchVet();
+		int vet=searchVet(idNumber);
 		int consultAmount=0;
 		boolean full=false;
 
@@ -425,7 +524,7 @@ public class PetCenter{
 				switch(vet){
 
 					case -1:
-						System.out.println("Theres no vets available\n");
+						System.out.println("Theres no vets available // OR // This id does not match any of the ones registered\n");
 					break;
 
 					default:
@@ -457,6 +556,15 @@ public class PetCenter{
 	}
 
 	// End Consult methods
+
+	/**
+	* Description: Method that ends a consult between a vet and a pet<br>
+	* <b> pre:</b> The status of both a certain vet and pet have to be ON_CONSULT and the pet object needs to have a vetConsult and the vet object a amountConsults<br>
+	* <b> pos:</b> The status of both a certain vet and pet has changed<br>
+	* @param vetId String
+	* @param petName String
+	* @param exit int
+	*/
 
 	public void endConsult(String vetId,String petName,int exit){
 
@@ -490,6 +598,11 @@ public class PetCenter{
 							petArray[pos].setPetState(Pet_State.AUTHORIZED_EXIT);
 							verify=true;
 						break;
+
+						default:
+							System.out.println("Please enter a valid exit status");
+							verify=true;
+						break;
 					}
 				}
 			}
@@ -502,6 +615,12 @@ public class PetCenter{
 
 	// Closing shop methods
 
+	/**
+	* Description: Method that searches for objects on the petArray that have a WAITING status<br>
+	* <b> pre:</b> The petArray must have atleast one space occupied<br>
+	* @return left boolean, Indicates whether or not there are pets with the WAITING status
+	*/
+
 	public boolean searchForWaitingPets(){
 		boolean left=false;
 		for(int i=0; i<petArray.length && !left; i++){
@@ -511,6 +630,13 @@ public class PetCenter{
 		}
 		return left;
 	}
+
+	/**
+	* Description: Method that searches for objects on the petArray that have a ON_CONSULT status<br>
+	* <b> pre:</b> The petArray must have atleast one space occupied<br>
+	* @return clear boolean, Indicates whether or not there are pets with the ON_CONSULT status
+	*/
+
 	public boolean checkArrays(){
 		boolean clear=false;
 		for(int i=0; i<petArray.length && !clear; i++){
@@ -522,12 +648,24 @@ public class PetCenter{
 		return clear;
 	}
 
+	/**
+	* Description: Method that calculates the % of pets that have the NO_ATTENTION_EXIT status<br>
+	* <b> pre:</b> The globalPets variable has to be higher than cero<br>
+	* @return percentage double, Indicates the % of pets that have the NO_ATTENTION_EXIT status
+	*/
 
 	public double percentagePet(){
 		double percentage=0;
 		percentage=((exitPets * 100)/globalPets);
 		return percentage;
 	}
+
+	/**
+	* Description: Method that searches for vets the name of the vet with the highest amount of consults made<br>
+	* <b> pre:</b> Atleast one object on the vetArray must have a relation with the amountConsult variable of the Vet class<br>
+	* @return vetName String, Indicates the full name of the vet with the highest amount of consults made
+	*/
+
 	public String vetName(){
 		int highest=-1;
 		String vetName="";
@@ -542,6 +680,11 @@ public class PetCenter{
 		return vetName;
 	}
 
+	/**
+	* Description: Method that adds a value of one to a certain variable pri1,pri2 ... pri5 based on the priority of the pet object<br>
+	* <b> pre:</b> There has to be atleast one pet object on the petArray<br>
+	* @param pos int
+	*/
 
 	public void amountPetsPriority(int pos){
 
@@ -565,11 +708,23 @@ public class PetCenter{
 			pri5++;
 		}
 	}
+
+	/**
+	* Description: Method that deletes every object on the petArray<br>
+	* <b> pos:</b> The array petArray is now empty<br>
+	*/
+
 	public void clearArrays(){
 		for(int i=0; i<petArray.length; i++){
 			petArray[i]=null;
 		}
 	}
+
+	/**
+	* Description: Method that prints some information about the program and cleans the array petArray<br>
+	* <b> pos:</b> The array petArray is now empty<br>
+	*/
+
 	public void closeShop(){
 
 		if(globalPets==0){
@@ -594,7 +749,7 @@ public class PetCenter{
 								   "Priority 3: " + pri3 + "\n" + 
 								   "Priority 4: " + pri4 + "\n" + 
 								   "Priority 5: " + pri5 + "\n\n" + 
-								   "The amount of pets that left without being attended is : " + percentagePet() + "%\n\n");
+								   "The percentage of pets that left without being attended is : " + percentagePet() + "%\n\n");
 						System.out.println("The shop has closed\n");
 						clearArrays();
 						exit=true;

@@ -4,24 +4,56 @@ import model.PetCenter;
 
 public class Main{
 
-	public Scanner sc;
+	/**
+	* Description: Reads values that the user enters<br>
+	*/
+
+	public Scanner sc;	
+
+	/**
+	* Description: Stores values that the user enters<br>
+	*/
+
 	private int menu=0;
+
+	/**
+	* Description: Stores a value that the user enters<br>
+	*/
+
 	private String race;
 
 	//relationships
+
+	/**
+	* Description: Relation with the PetCenter class // This creates a "bridge" between the packages, ui and model<br>
+	*/
+
 	private PetCenter petCenter;
+
+	/**
+	* Description: Construction method of the Main class, it allows initiating the scanner on a not static method<br>
+	*/
 
 	public Main (){
 
 		sc = new Scanner(System.in);	
 	}
-	
+
+	/**
+	* Description: Method that calls the openUP method<br>
+	* @param args String array <br>
+	*/
+
 	public static void main (String [] args){
 		Main m= new Main();
 		m.openUp();
 	} 
 
 	// Menu methods
+
+	/**
+	* Description: Method that prints out a menu with selectable options, these options may or may not  call other methods aswell<br>
+	*/
 
 	public void openUp(){
 
@@ -47,6 +79,10 @@ public class Main{
 
 			} while(menu!=0);
 	}
+
+	/**
+	* Description: Method that prints out a menu with selectable options, these options may or may not  call other methods aswell<br>
+	*/
 
 	public void showmenu(){
 			
@@ -75,7 +111,7 @@ public class Main{
 					break;
 
 					case 3:
-						petCenter.startConsult();
+						startConsult();
 					break;
 
 					case 4:
@@ -111,6 +147,12 @@ public class Main{
 
 	// Pet Center methods
 
+	/**
+	* Description: This method allows the user to input the information required to create a new vet <br>
+	* <b> pre:</b> the variable menu needs have a value of 1<br>
+	* <b> pos:</b> the requiered information to create a new vet has been sent to the petCenter via the method <br>
+	*/
+
 	public void addVet(){
 
 			if(petCenter.getVetCount()==7){
@@ -135,6 +177,12 @@ public class Main{
 				petCenter.addVet(idNumber,name,lastName,vetId);
 			}
 	}
+
+	/**
+	* Description: This method allows the user to input the information required to create a new pet <br>
+	* <b> pre:</b> the variable menu needs have a value of 2<br>
+	* <b> pos:</b> the requiered information to create a new pet has been sent to the petCenter via the method <br>
+	*/
 
 	public void addPet(){
 
@@ -199,6 +247,24 @@ public class Main{
 			}		
 	}
 
+	/**
+	* Description: This method allows the user to input the information required to start a consult between a vet and a pet<br>
+	* <b> pre:</b> the variable menu needs have a value of 3<br>
+	* <b> pos:</b> the requiered information to start the consult has been sent to the petCenter via the method <br>
+	*/
+
+	public void startConsult(){
+		System.out.println("Please enter the personal ID of the vet that is going to initiate the consult\n");
+		String idNumber= sc.nextLine();
+		petCenter.startConsult(idNumber);
+	}
+
+	/**
+	* Description: This method allows the user to input the information required to end a consult between a vet and a pet<br>
+	* <b> pre:</b> the variable menu needs have a value of 4<br>
+	* <b> pos:</b> the requiered information to end the consult has been sent to the petCenter via the method <br>
+	*/
+
 	public void endConsult(){
 			System.out.println("		Vet Info\n"+
 							   "What is the personal ID of the vet doing the consult?\n");
@@ -214,11 +280,23 @@ public class Main{
 			petCenter.endConsult(vetId,petName,exit);
 	}
 
+	/**
+	* Description: This method allows the user to input the information required to delete a vet<br>
+	* <b> pre:</b> the variable menu needs have a value of 6<br>
+	* <b> pos:</b> the requiered information to delete a vet has been sent to the petCenter via the method <br>
+	*/
+
 	public void deleteVet(){
 			System.out.println("Please enter the special vet ID of this vet\n");
 			String vetId= sc.nextLine();
 			petCenter.deleteVet(vetId);
 	}
+
+	/**
+	* Description: This method allows the user to input the information required to delete a vet<br>
+	* <b> pre:</b> the variable menu needs have a value of 7<br>
+	* <b> pos:</b> the requiered information to delete a vet has been sent to the petCenter via the method <br>
+	*/
 
 	public void deletePet(){
 
