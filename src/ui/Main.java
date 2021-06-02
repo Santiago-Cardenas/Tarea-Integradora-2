@@ -16,12 +16,6 @@ public class Main{
 
 	private int menu=0;
 
-	/**
-	* Description: Stores a value that the user enters<br>
-	*/
-
-	private String race;
-
 	//relationships
 
 	/**
@@ -96,7 +90,7 @@ public class Main{
 								   "4) Finish a consult\n" +
 								   "5) Number of pets waiting to be attendended\n" +
 								   "6) Delete a vet\n"+
-								   "7) Delete a pet\n"+
+								   "7) Select this if a pet is leaving\n"+
 								   "8) Close shop\n");
 			
 				menu=sc.nextInt();
@@ -135,12 +129,12 @@ public class Main{
 					break;
 
 					case 7:
-						deletePet();
+						leavePet();
 						petCenter.setExit(false);
 					break;
 
 					case 8:
-						petCenter.closeShop();
+						System.out.println(petCenter.closeShop());
 					break;
 
 					default:
@@ -181,7 +175,7 @@ public class Main{
 				System.out.println("Please enter the special vet ID of this vet\n");
 				String vetId= sc.nextLine();
 
-				petCenter.addVet(idNumber,name,lastName,vetId);
+				System.out.println(petCenter.addVet(idNumber,name,lastName,vetId));
 			}
 	}
 
@@ -192,6 +186,7 @@ public class Main{
 	*/
 
 	public void addPet(){
+		String race="";
 
 			if(petCenter.getPetCount()>=120){
 				System.out.println("Cannot register more pets");
@@ -246,10 +241,10 @@ public class Main{
 				System.out.println("What kind of sympotoms is the pet having?\n");
 				String symptom= sc.nextLine();
 				if (specie==1 || specie==2){
-				petCenter.addPetMain(specie,priority,idNumber,name,lastName,phone,adress,age,petName,symptom,race);
+				System.out.println(petCenter.addPetMain(specie,priority,idNumber,name,lastName,phone,adress,age,petName,symptom,race));
 				}
 				else{
-				petCenter.addPetMain(specie,priority,idNumber,name,lastName,phone,adress,age,petName,symptom);
+				System.out.println(petCenter.addPetMain(specie,priority,idNumber,name,lastName,phone,adress,age,petName,symptom));
 				}
 			}		
 	}
@@ -263,7 +258,7 @@ public class Main{
 	public void startConsult(){
 		System.out.println("Please enter the personal ID of the vet that is going to initiate the consult\n");
 		String idNumber= sc.nextLine();
-		petCenter.startConsult(idNumber);
+		System.out.println(petCenter.startConsult(idNumber));
 	}
 
 	/**
@@ -284,7 +279,7 @@ public class Main{
 							   "1) Yes\n" +
 							   "2) No\n");
 			int exit= sc.nextInt();
-			petCenter.endConsult(vetId,petName,exit);
+			System.out.println(petCenter.endConsult(vetId,petName,exit));
 	}
 
 	/**
@@ -296,7 +291,7 @@ public class Main{
 	public void deleteVet(){
 			System.out.println("Please enter the special vet ID of this vet\n");
 			String vetId= sc.nextLine();
-			petCenter.deleteVet(vetId);
+			System.out.println(petCenter.deleteVet(vetId));
 	}
 
 	/**
@@ -305,7 +300,7 @@ public class Main{
 	* <b> pos:</b> the requiered information to delete a pet has been sent to the petCenter via the method <br>
 	*/
 
-	public void deletePet(){
+	public void leavePet(){
 
 			System.out.println("		Owners Info\n"+
 							   "Please enter the name of the owner\n");
@@ -315,7 +310,8 @@ public class Main{
 							   "What is the name of the pet?\n");
 			String petName= sc.nextLine();
 
-			petCenter.deletePet(ownerName,petName);
+			System.out.println(petCenter.leavePet(ownerName,petName));
+
 	}
 
 }

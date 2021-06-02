@@ -114,23 +114,25 @@ public class PetCenter{
 	* @param vetId String
 	*/
 
-	public void addVet(String idNumber, String name, String lastName,String vetId){
+	public String addVet(String idNumber, String name, String lastName,String vetId){
+		String msg="";
 		boolean empty= false;
 		for (int pos =0; pos<vetArray.length && !empty; pos++){
 
 			if(vetArray[pos]!=null && vetArray[pos].getVetId().equalsIgnoreCase(vetId)){
-				System.out.println("A vet with this same special ID has already been registered\n");
+				msg+="A vet with this same special ID has already been registered\n";
 				empty=true;
 			}	
 			if(vetArray[pos]==null){
 				Vet newVet = new Vet (idNumber,name,lastName,vetId,Vet_State.FREE);
 				vetArray[pos]=newVet;
-				System.out.println( vetArray[pos].getName() + " has been registered\n");
+				msg+=( vetArray[pos].getName() + " has been registered\n");
 				vetArray[pos].setAmountConsults(0);
 				vetCount++;
 				empty=true;
 			}	
 		}
+		return msg;
 	}
 
 	/**
@@ -146,25 +148,27 @@ public class PetCenter{
 	* @param owner Owner 
 	*/
 
-	public void addPet(String age,String petName,String symptom,Specie specie,Pet_State state,Priority priority,Owner owner){
+	public String addPet(String age,String petName,String symptom,Specie specie,Pet_State state,Priority priority,Owner owner){
+		String msg="";
 		boolean empty= false;
 		for (int pos =0; pos<petArray.length && !empty; pos++){
 
 			if(petArray[pos]!=null && petArray[pos].getPetName().equalsIgnoreCase(petName) && petArray[pos].getOwner().getName().equalsIgnoreCase(owner.getName())){
-				System.out.println("The combination " + petName + " , " + owner.getName() + " already exists\n");
+				msg+=("The combination " + petName + " , " + owner.getName() + " already exists\n");
 				empty=true;
 			}
 
 			if( petArray[pos]==null ){
 				Pet newPet = new Pet (age,petName,symptom,specie,state,priority,owner);
 				petArray[pos]=newPet;
-				System.out.println( petName + " has been registered\n");
+				msg+=(petName + " has been registered\n");
 				petCount++;
 				globalPets++;
 				waitingPets++;
 				empty=true;
 			}
 		}
+		return msg;
 	}
 
 	/**
@@ -181,25 +185,27 @@ public class PetCenter{
 	* @param owner Owner 
 	*/	
 
-	public void addPet(String age,String petName,String symptom,String race,Specie specie,Pet_State state,Priority priority,Owner owner){
+	public String addPet(String age,String petName,String symptom,String race,Specie specie,Pet_State state,Priority priority,Owner owner){
+		String msg="";
 		boolean empty= false;
 		for (int pos=0; pos<petArray.length && !empty; pos++){
 
 			if(petArray[pos]!=null && petArray[pos].getPetName().equalsIgnoreCase(petName) && petArray[pos].getOwner().getName().equalsIgnoreCase(owner.getName())){
-				System.out.println("The combination " + petName + " , " + owner.getName() + " already exists\n");
+				msg+=("The combination " + petName + " , " + owner.getName() + " already exists\n");
 				empty=true;
 			}
 
 			if(petArray[pos]==null){
 				Pet newPet = new Pet (age,petName,symptom,race,specie,state,priority,owner);
 				petArray[pos]=newPet;
-				System.out.println( petName + " has been registered\n");
+				msg+=(petName + " has been registered\n");
 				petCount++;
 				globalPets++;
 				waitingPets++;
 				empty=true;
 			}	
 		}
+		return msg;
 	}
 
 	// Delete methods
@@ -211,30 +217,31 @@ public class PetCenter{
 	* @param vetId String
 	*/
 
-	public void deleteVet (String vetId){
-
+	public String deleteVet (String vetId){
+		String msg="";
 		boolean find=false;
 		for(int i=0; i < vetArray.length && !find; i++){
 			if(vetArray[i]!=null && vetArray[i].getVetId().equalsIgnoreCase(vetId) && petCount==0){
-				System.out.println( vetArray[i].getName() + " has been deleted\n");
+				msg+=( vetArray[i].getName() + " has been deleted\n");
 				vetArray[i]=null;
 				vetCount--;
 				find=true;
 			}
 			if(vetArray[i]!=null && vetArray[i].getVetId().equalsIgnoreCase(vetId) && petCount>0 && vetArray[i].getVetState().equals(Vet_State.FREE)){
-				System.out.println( "Cannot delete the vet because theres still pets registered\n");
+				msg+=( "Cannot delete the vet because theres still pets registered\n");
 				find=true;
 			}
 			if(vetArray[i]!=null && vetArray[i].getVetId().equalsIgnoreCase(vetId) && vetArray[i].getVetState().equals(Vet_State.ON_CONSULT)){
-				System.out.println( vetArray[i].getName() + " is currently on a consult\n");
+				msg+=( vetArray[i].getName() + " is currently on a consult\n");
 				find=true;
 			}
 
 		}
 
 		if(find==false){
-			System.out.println("Theres no vet with this special vet ID\n");
+			msg+=("Theres no vet with this special vet ID\n");
 		}
+		return msg;
 	}
 
 	/**
@@ -245,26 +252,28 @@ public class PetCenter{
 	* @param petName String
 	*/
 
-	public void deletePet (String ownerName,String petName){
+	public String leavePet (String ownerName,String petName){
 
 		boolean find=false;
+		String msg="";
 		for(int i=0; i < petArray.length && !find; i++){
 			if(petArray[i]!=null && petArray[i].getOwner().getName().equalsIgnoreCase(ownerName) && petArray[i].getPetName().equalsIgnoreCase(petName) && petArray[i].getState()==Pet_State.WAITING){
 				petArray[i].setPetState(Pet_State.NO_ATTENTION_EXIT);
-				System.out.println( petName + " has been deleted\n");
+				msg+=( petName + " has left the center\n");
 				exitPets++;
 				petCount--;
 				find=true;
 			}
 			if(petArray[i]!=null && petArray[i].getOwner().getName().equalsIgnoreCase(ownerName) && petArray[i].getPetName().equalsIgnoreCase(petName) && petArray[i].getState()==Pet_State.ON_CONSULT){
-				System.out.println( petName + " is currently on a consult and cannot be deleted\n");
+				msg+=( petName + " is currently on a consult and cannot leave the center\n");
 				find=true;
 			}
 		}
 
 		if(find==false){
-			System.out.println("Theres no pet registered like this // OR // this pet is not waiting or on consult\n");
+			msg+=("Theres no pet registered like this // OR // this pet is not waiting or on consult\n");
 		}
+		return msg;
 	}
 
 	// Create objects on Main methods
@@ -285,7 +294,8 @@ public class PetCenter{
 	* @param race String
 	*/
 
-	public void addPetMain(int specie, int priority,String idNumber,String name,String lastName,String phone,String adress,String age,String petName,String symptom,String race){
+	public String addPetMain(int specie, int priority,String idNumber,String name,String lastName,String phone,String adress,String age,String petName,String symptom,String race){
+		String msg="";
 		Owner owner= new Owner (idNumber,name,lastName,phone,adress);
 
 			switch(specie){
@@ -293,53 +303,54 @@ public class PetCenter{
 				case 1:
 					switch(priority){
 						case 1:
-							addPet(age,petName,symptom,race,Specie.DOG,Pet_State.WAITING,Priority.PRIORITY_1,owner);
+							msg+=addPet(age,petName,symptom,race,Specie.DOG,Pet_State.WAITING,Priority.PRIORITY_1,owner);
 						break;
 						case 2:
-							addPet(age,petName,symptom,race,Specie.DOG,Pet_State.WAITING,Priority.PRIORITY_2,owner);
+							msg+=addPet(age,petName,symptom,race,Specie.DOG,Pet_State.WAITING,Priority.PRIORITY_2,owner);
 						break;
 						case 3:
-							addPet(age,petName,symptom,race,Specie.DOG,Pet_State.WAITING,Priority.PRIORITY_3,owner);
+							msg+=addPet(age,petName,symptom,race,Specie.DOG,Pet_State.WAITING,Priority.PRIORITY_3,owner);
 						break;
 						case 4:
-							addPet(age,petName,symptom,race,Specie.DOG,Pet_State.WAITING,Priority.PRIORITY_4,owner);
+							msg+=addPet(age,petName,symptom,race,Specie.DOG,Pet_State.WAITING,Priority.PRIORITY_4,owner);
 						break;
 						case 5:
-							addPet(age,petName,symptom,race,Specie.DOG,Pet_State.WAITING,Priority.PRIORITY_5,owner);
+							msg+=addPet(age,petName,symptom,race,Specie.DOG,Pet_State.WAITING,Priority.PRIORITY_5,owner);
 						break;
 						default:
-            				System.out.println("Enter valid information");
+            				msg+=("Enter valid information");
             			break;
 					}
 				break;
-
 				case 2:
 					switch(priority){
 						case 1:
-							addPet(age,petName,symptom,race,Specie.CAT,Pet_State.WAITING,Priority.PRIORITY_1,owner);
+							msg+=addPet(age,petName,symptom,race,Specie.CAT,Pet_State.WAITING,Priority.PRIORITY_1,owner);
 						break;
 						case 2:
-							addPet(age,petName,symptom,race,Specie.CAT,Pet_State.WAITING,Priority.PRIORITY_2,owner);
+							msg+=addPet(age,petName,symptom,race,Specie.CAT,Pet_State.WAITING,Priority.PRIORITY_2,owner);
 						break;
 						case 3:
-							addPet(age,petName,symptom,race,Specie.CAT,Pet_State.WAITING,Priority.PRIORITY_3,owner);
+							msg+=addPet(age,petName,symptom,race,Specie.CAT,Pet_State.WAITING,Priority.PRIORITY_3,owner);
 						break;
 						case 4:
-							addPet(age,petName,symptom,race,Specie.CAT,Pet_State.WAITING,Priority.PRIORITY_4,owner);
+							msg+=addPet(age,petName,symptom,race,Specie.CAT,Pet_State.WAITING,Priority.PRIORITY_4,owner);
 						break;
 						case 5:
-							addPet(age,petName,symptom,race,Specie.CAT,Pet_State.WAITING,Priority.PRIORITY_5,owner);
+							msg+=addPet(age,petName,symptom,race,Specie.CAT,Pet_State.WAITING,Priority.PRIORITY_5,owner);
 						break;
 						default:
-            				System.out.println("Enter valid information");
+            				msg+=("Enter valid information");
             			break;
 					}
 				break;
 
 				default:
-					System.out.println("Enter valid information");
+					msg+=("Enter valid information");
 				break;
 			}
+
+		return msg;
 	}
 
 	/**
@@ -357,29 +368,30 @@ public class PetCenter{
 	* @param symptom String
 	*/
 
-	public void addPetMain(int specie, int priority,String idNumber,String name,String lastName,String phone,String adress,String age,String petName,String symptom){		
-			Owner owner= new Owner (idNumber,name,lastName,phone,adress);
+	public String addPetMain(int specie, int priority,String idNumber,String name,String lastName,String phone,String adress,String age,String petName,String symptom){		
+		String msg="";	
+		Owner owner= new Owner (idNumber,name,lastName,phone,adress);
 
 				switch(specie){	
 					case 3:
 						switch(priority){
 							case 1:
-								addPet(age,petName,symptom,Specie.BUNNY,Pet_State.WAITING,Priority.PRIORITY_1,owner);
+								msg+=addPet(age,petName,symptom,Specie.BUNNY,Pet_State.WAITING,Priority.PRIORITY_1,owner);
 							break;
 							case 2:
-								addPet(age,petName,symptom,Specie.BUNNY,Pet_State.WAITING,Priority.PRIORITY_2,owner);
+								msg+=addPet(age,petName,symptom,Specie.BUNNY,Pet_State.WAITING,Priority.PRIORITY_2,owner);
 							break;
 							case 3:
-								addPet(age,petName,symptom,Specie.BUNNY,Pet_State.WAITING,Priority.PRIORITY_3,owner);
+								msg+=addPet(age,petName,symptom,Specie.BUNNY,Pet_State.WAITING,Priority.PRIORITY_3,owner);
 							break;
 							case 4:
-								addPet(age,petName,symptom,Specie.BUNNY,Pet_State.WAITING,Priority.PRIORITY_4,owner);
+								msg+=addPet(age,petName,symptom,Specie.BUNNY,Pet_State.WAITING,Priority.PRIORITY_4,owner);
 							break;
 							case 5:
-								addPet(age,petName,symptom,Specie.BUNNY,Pet_State.WAITING,Priority.PRIORITY_5,owner);
+								msg+=addPet(age,petName,symptom,Specie.BUNNY,Pet_State.WAITING,Priority.PRIORITY_5,owner);
 							break;
 							default:
-            					System.out.println("Enter valid information");
+            					msg+=("Enter valid information");
             				break;
 						}
 					break;
@@ -387,22 +399,22 @@ public class PetCenter{
 					case 4:
 						switch(priority){
 							case 1:
-								addPet(age,petName,symptom,Specie.REPITLE,Pet_State.WAITING,Priority.PRIORITY_1,owner);
+								msg+=addPet(age,petName,symptom,Specie.REPITLE,Pet_State.WAITING,Priority.PRIORITY_1,owner);
 							break;
 							case 2:
-								addPet(age,petName,symptom,Specie.REPITLE,Pet_State.WAITING,Priority.PRIORITY_2,owner);
+								msg+=addPet(age,petName,symptom,Specie.REPITLE,Pet_State.WAITING,Priority.PRIORITY_2,owner);
 							break;
 							case 3:
-								addPet(age,petName,symptom,Specie.REPITLE,Pet_State.WAITING,Priority.PRIORITY_3,owner);
+								msg+=addPet(age,petName,symptom,Specie.REPITLE,Pet_State.WAITING,Priority.PRIORITY_3,owner);
 							break;
 							case 4:
-								addPet(age,petName,symptom,Specie.REPITLE,Pet_State.WAITING,Priority.PRIORITY_4,owner);
+								msg+=addPet(age,petName,symptom,Specie.REPITLE,Pet_State.WAITING,Priority.PRIORITY_4,owner);
 							break;
 							case 5:
-								addPet(age,petName,symptom,Specie.REPITLE,Pet_State.WAITING,Priority.PRIORITY_5,owner);
+								msg+=addPet(age,petName,symptom,Specie.REPITLE,Pet_State.WAITING,Priority.PRIORITY_5,owner);
 							break;
 							default:
-            					System.out.println("Enter valid information");
+            					msg+=("Enter valid information");
             				break;
 						}
 					break;
@@ -410,29 +422,30 @@ public class PetCenter{
 					case 5:
 						switch(priority){
 							case 1:
-								addPet(age,petName,symptom,Specie.BIRD,Pet_State.WAITING,Priority.PRIORITY_1,owner);
+								msg+=addPet(age,petName,symptom,Specie.BIRD,Pet_State.WAITING,Priority.PRIORITY_1,owner);
 							break;
 							case 2:
-								addPet(age,petName,symptom,Specie.BIRD,Pet_State.WAITING,Priority.PRIORITY_2,owner);
+								msg+=addPet(age,petName,symptom,Specie.BIRD,Pet_State.WAITING,Priority.PRIORITY_2,owner);
 							break;
 							case 3:
-								addPet(age,petName,symptom,Specie.BIRD,Pet_State.WAITING,Priority.PRIORITY_3,owner);
+								msg+=addPet(age,petName,symptom,Specie.BIRD,Pet_State.WAITING,Priority.PRIORITY_3,owner);
 							break;
 							case 4:
-								addPet(age,petName,symptom,Specie.BIRD,Pet_State.WAITING,Priority.PRIORITY_4,owner);
+								msg+=addPet(age,petName,symptom,Specie.BIRD,Pet_State.WAITING,Priority.PRIORITY_4,owner);
 							break;
 							case 5:
-								addPet(age,petName,symptom,Specie.BIRD,Pet_State.WAITING,Priority.PRIORITY_5,owner);
+								msg+=addPet(age,petName,symptom,Specie.BIRD,Pet_State.WAITING,Priority.PRIORITY_5,owner);
 							break;
 							default:
-            					System.out.println("Enter valid information");
+            					msg+=("Enter valid information");
             				break;
 						}
 					break;
 					default:
-    					System.out.println("Enter valid information");
+    					msg+=("Enter valid information");
     				break;
 				}
+		return msg;
 	}
 
 	// Start Consult methods
@@ -509,7 +522,8 @@ public class PetCenter{
 	* @param idNumber String
 	*/
 
-	public void startConsult(String idNumber){
+	public String startConsult(String idNumber){
+		String msg="";
 		int pet=searchPet();
 		int vet=searchVet(idNumber);
 		int consultAmount=0;
@@ -517,24 +531,24 @@ public class PetCenter{
 
 		if (vetCount==0 || petCount==0){
 
-			System.out.println("There has to be at least one vet and pet registered to initiate a consult\n");
+			msg+=("There has to be at least one vet and pet registered to initiate a consult\n");
 		}
 			else{
 
 				switch(vet){
 
 					case -1:
-						System.out.println("Theres no vets available // OR // This id does not match any of the ones registered\n");
+						msg+=("Theres no vets available // OR // This id does not match any of the ones registered\n");
 					break;
 
 					default:
 						switch(pet){
 							case -1:
-								System.out.println("Theres no pets left for attending\n");
+								msg+=("Theres no pets left for attending\n");
 							break;
 
 							default:
-								System.out.println("The personal Id number of the veterinary that will attend " + petArray[pet].getPetName() + " is: " + vetArray[vet].getIdNumber() + "\n");								
+								msg+=("The personal Id number of the veterinary that will attend " + petArray[pet].getPetName() + " is: " + vetArray[vet].getIdNumber() + "\n");								
 								
 								vetArray[vet].setVetState(Vet_State.ON_CONSULT);
 								petArray[pet].setPetState(Pet_State.ON_CONSULT);
@@ -553,6 +567,8 @@ public class PetCenter{
 
 				}
 		}
+		
+		return msg;
 	}
 
 	// End Consult methods
@@ -566,8 +582,8 @@ public class PetCenter{
 	* @param exit int
 	*/
 
-	public void endConsult(String vetId,String petName,int exit){
-
+	public String endConsult(String vetId,String petName,int exit){
+		String msg="";
 		boolean verify=false;
 
 		for(int pos=0;pos<petArray.length && !verify ;pos++){
@@ -578,7 +594,7 @@ public class PetCenter{
 					
 					switch (exit){
 						case 1:
-							System.out.println("		The consult has ended\n" +
+							msg+=("		The consult has ended\n" +
 											   "Id of the veterinary that did the consult: " + vetArray[i].getIdNumber() + "\n" +
 											   "Name of the pet that recieved the consult: " + petArray[pos].getPetName() + "\n" +
 											   "Exit status: Needs attention on hospital\n");
@@ -589,7 +605,7 @@ public class PetCenter{
 						break;
 
 						case 2:
-							System.out.println("		The consult has ended\n" +
+							msg+=("		The consult has ended\n" +
 											   "Id of the veterinary that did the consult: " + vetArray[i].getIdNumber() + "\n" +
 											   "Name of the pet that recieved the consult: " + petArray[pos].getPetName() + "\n" +
 											   "Exit status: Authorized\n");
@@ -600,7 +616,7 @@ public class PetCenter{
 						break;
 
 						default:
-							System.out.println("Please enter a valid exit status\n");
+							msg+=("Please enter a valid exit status\n");
 							verify=true;
 						break;
 					}
@@ -609,8 +625,9 @@ public class PetCenter{
 		}
 
 		if(verify==false){
-			System.out.println("Theres no consult with this parameters\n");
+			msg+=("Theres no consult with this parameters\n");
 		}
+	return msg;
 	}
 
 	// Closing shop methods
@@ -725,24 +742,24 @@ public class PetCenter{
 	* <b> pos:</b> The array petArray is now empty<br>
 	*/
 
-	public void closeShop(){
-
+	public String closeShop(){
+		String msg="";
 		if(globalPets==0){
-			System.out.println("The shop has closed\n");
+			msg+=("The shop has closed\n");
 		}
 			else if(searchForWaitingPets()==true){
-				System.out.println("Theres still pets left to be attended\n");
+				msg+=("Theres still pets left to be attended\n");
 				exit=false;
 			}
 				else if(checkArrays()==true){
-					System.out.println("Theres still pets being attended\n");
+					msg+=("Theres still pets being attended\n");
 					exit=false;
 				}
 					else{
-						System.out.println("		Vet Info\n" +
+						msg+=("		Vet Info\n" +
 										   "The vet with the highest amount of consults is: " + vetName() + "\n");
 
-						System.out.println("		Pet Info\n"+
+						msg+=("		Pet Info\n"+
 								   "The amount of pets attended by priority:\n" +
 								   "Priority 1: " + pri1 + "\n" + 
 								   "Priority 2: " + pri2 + "\n" + 
@@ -750,10 +767,11 @@ public class PetCenter{
 								   "Priority 4: " + pri4 + "\n" + 
 								   "Priority 5: " + pri5 + "\n\n" + 
 								   "The percentage of pets that left without being attended is : " + percentagePet() + "%\n\n");
-						System.out.println("The shop has closed\n");
+						msg+=("The shop has closed\n");
 						clearArrays();
 						exit=true;
 					}
+		return msg;
 	}
 
 	// gets and sets
