@@ -45,7 +45,7 @@ public class Main{
 
 	public void openUp(){
 
-		private int menu=0;
+		int menu=0;
 
 		do {
 				System.out.println("		Menu\n"+
@@ -78,7 +78,7 @@ public class Main{
 
 	public void showmenu(){
 		
-		private int menu=0;
+		int menu=0;
 			do {
 				System.out.println("		Menu\n"+
 								   "1) Add a vet to the list\n"+
