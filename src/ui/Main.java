@@ -10,12 +10,6 @@ public class Main{
 
 	public Scanner sc;	
 
-	/**
-	* Description: Stores values that the user enters<br>
-	*/
-
-	private int menu=0;
-
 	//relationships
 
 	/**
@@ -51,6 +45,8 @@ public class Main{
 
 	public void openUp(){
 
+		private int menu=0;
+
 		do {
 				System.out.println("		Menu\n"+
 								   "1) Open up\n" +
@@ -81,7 +77,8 @@ public class Main{
 	*/
 
 	public void showmenu(){
-			
+		
+		private int menu=0;
 			do {
 				System.out.println("		Menu\n"+
 								   "1) Add a vet to the list\n"+
