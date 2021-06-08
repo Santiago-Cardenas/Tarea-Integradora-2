@@ -1828,10 +1828,6 @@ public class PetCenter{
 		return exit;
 	}
 
-	public void setFromCenter(boolean fromCenter){
-		this.fromCenter=fromCenter;
-	}
-
 	public void setExit(boolean exit){
 		this.exit=exit;
 	}
