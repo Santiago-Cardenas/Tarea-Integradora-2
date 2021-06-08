@@ -24,7 +24,7 @@ public enum Specie{
 	* Description: Global Constant that helps to indicate that the specie of a pet is "REPITLE"<br>
 	*/
 
-	REPITLE, 
+	REPTILE, 
 
 	/**
 	* Description: Global Constant that helps to indicate that the specie of a pet is "BIRD"<br>

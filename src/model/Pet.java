@@ -3,6 +3,12 @@ package model;
 public class Pet{
 
 	/**
+	* Description: variable that stores the amount of time a pet is going to stay in the daycare<br>
+	*/
+ 
+	private int days;
+
+	/**
 	* Description: variable that stores the age of a pet<br>
 	*/
  
@@ -102,8 +108,34 @@ public class Pet{
 		this.owner=owner;
 	}
 
+	/**
+	* Description: Construction method of the Pet class<br>
+	* <b> pos:</b> The atributes will be initialize with a value<br>
+	* @param age String
+	* @param petName String 
+	* @param specie Specie
+	* @param days int
+	* @param owner Owner 
+	*/	
+
+	public Pet (String age,String petName,Specie specie,int days,Owner owner){
+		this.age=age;
+		this.petName=petName;
+		this.specie=specie;
+		this.days=days;
+		this.owner=owner;
+	}
+
 	public String getPetName(){
 		return petName;
+	}
+
+	public Specie getPetSpecie(){
+		return specie;
+	} 
+
+	public String getAge(){
+		return age;
 	}
 
 	public Priority getPriority(){
@@ -114,6 +146,10 @@ public class Pet{
 		return owner;
 	}
 
+	public int getDays(){
+		return days;
+	}
+
 	public Pet_State getState(){
 		return state;
 	}
@@ -122,6 +158,9 @@ public class Pet{
 		return consultVet;
 	}
 
+	public void setDays(int days){
+		this.days=days;
+	}
 	public void setPetState(Pet_State state){
 		this.state=state;
 	}

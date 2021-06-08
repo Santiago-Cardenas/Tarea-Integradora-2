@@ -28,5 +28,13 @@ public class Owner extends Person{
 		super(idNumber,name,lastName);
 		this.phone=phone;
 		this.adress=adress;
-	}				
+	}
+
+	public String getPhone(){
+		return phone;
+	}
+
+	public String getAdress(){
+		return adress;
+	}		
 }
